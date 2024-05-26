@@ -218,17 +218,67 @@ int countNonEmpty(const string arr[])
 }
 
 // Tambah Data
-void tambahr()
+void tambahbca()
 {
     string data;
     int i = countNonEmpty(BCA);
-    
-    cout << "Masukkan nomor rekening baru dan A/N nya." << endl;
-    cin.ignore(); 
+
+    cout << "Masukkan nomor rekening baru dan A/N nya : " << endl;
+    cin.ignore();
     getline(cin, data);
     BCA[i] = data;
 
     cout << "Nomor rekening berhasil ditambahkan." << endl;
+}
+
+// Tambah Data
+void tambahgp()
+{
+    string data;
+    int i = countNonEmpty(GP);
+
+    cout << "Masukkan nomor rekening baru dan A/N nya : " << endl;
+    cin.ignore();
+    getline(cin, data);
+    GP[i] = data;
+
+    cout << "Nomor rekening berhasil ditambahkan." << endl;
+}
+
+// Tambah Data
+void tambahdn()
+{
+    string data;
+    int i = countNonEmpty(DN);
+
+    cout << "Masukkan nomor rekening baru dan A/N nya : " << endl;
+    cin.ignore();
+    getline(cin, data);
+    DN[i] = data;
+
+    cout << "Nomor rekening berhasil ditambahkan." << endl;
+}
+
+//Hapus Data
+void hapusbca(int cari) {
+    int j = countNonEmpty(BCA);
+    for (int i = cari - 1; i < j; i++) {
+        BCA[i] = BCA[i + 1];
+    }
+}
+
+void hapusgp(int cari) {
+    int j = countNonEmpty(GP);
+    for (int i = cari - 1; i < j; i++) {
+        GP[i] = GP[i + 1];
+    }
+}
+
+void hapusdn(int cari) {
+    int j = countNonEmpty(DN);
+    for (int i = cari - 1; i < j; i++) {
+        DN[i] = DN[i + 1];
+    }
 }
 
 // Masa gatau

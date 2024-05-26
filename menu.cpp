@@ -1,8 +1,9 @@
 #include "LL.h"
 
-//Submenu 1 (Data)
-void menu1(int pilih) {
-    menu1:
+// Submenu 1 (Data)
+void menu1(int pilih)
+{
+menu1:
     int pilihan;
     cout << ">>>>> Sub-Menu Pulsa <<<<<" << endl;
     cout << '\n';
@@ -13,11 +14,12 @@ void menu1(int pilih) {
     cout << "Masukkan pilihan : ";
     cin >> pilihan;
 
-    if (pilihan == 1) {
+    if (pilihan == 1)
+    {
         string name;
         int price;
         int id;
-        
+
         cout << "Masukkan Nama Pulsa : ";
         cin.ignore();
         getline(cin, name);
@@ -28,15 +30,19 @@ void menu1(int pilih) {
 
         tambahp(name, price, id);
         goto menu1;
-    } else if (pilihan == 2) {
+    }
+    else if (pilihan == 2)
+    {
         int cari;
 
         cout << "Masukkan id Data yang ingin diubah : ";
         cin >> cari;
-        
+
         editp(cari);
         goto menu1;
-    } else if (pilihan == 3) {
+    }
+    else if (pilihan == 3)
+    {
         int cari;
 
         cout << "Masukkan id data yang ingin dihapus : ";
@@ -44,15 +50,18 @@ void menu1(int pilih) {
 
         hapusp(cari);
         goto menu1;
-    } else {
+    }
+    else
+    {
         cout << "Harap pilih pilihan yang tersedia." << endl;
         goto menu1;
     }
 }
 
-//Submenu 2 (Rekening Tujuan)
-void menu2(int pilih) {
-    menu2:
+// Submenu 2 (Rekening Tujuan)
+void menu2(int pilih)
+{
+menu2:
     int pilihan;
     cout << ">>>>> Sub-Menu Rekening Tujuan <<<<<" << endl;
     cout << '\n';
@@ -65,43 +74,57 @@ void menu2(int pilih) {
     cout << "Dana : " << endl;
     tampil_DN();
     cout << "\n1. Tambah Rekening" << endl;
-    cout << "2. Edit Rekening" << endl;
-    cout << "3. Hapus Rekening" << endl;
+    cout << "2. Hapus Rekening" << endl;
     cout << "Masukkan pilihan : ";
     cin >> pilihan;
 
-    switch (pilihan) {
+    switch (pilihan)
+    {
     case 1:
-        tambahr();
+        tambahbca();
         system("pause");
         break;
-    
+
+    case 2:
+        int carir;
+        cout << "Pilih index data yang ingin dihapus : ";
+        cin >> carir;
+        hapusbca(carir);
+        system("pause");
+        break;
+
     default:
+        cout << "Harap pilih sesuai pilihan." << endl;
         break;
     }
 }
 
-//Ya gitu
-void menu_admin() {
-    system ("cls");
+// Ya gitu
+void menu_admin()
+{
+    system("cls");
     int pilih;
     cout << "Menu Admin ARRZ" << endl;
     cout << "1. Edit Pulsa" << endl;
     cout << "2. Edit Rekening" << endl;
     cout << "Masukkan pilihan : ";
     cin >> pilih;
-    
-    if (pilih == 1) {
+
+    if (pilih == 1)
+    {
         menu1(1);
-    } else if (pilih == 2) {
+    }
+    else if (pilih == 2)
+    {
         menu2(2);
     }
 }
 
-//Sama aja
-void menu_user() {
+// Sama aja
+void menu_user()
+{
     int pilihu;
-    system ("cls");
+    system("cls");
     cout << "===== Selamat Datang di Counter ARRZ =====" << endl;
     cout << "Pulsa Yang Tersedia : " << endl;
     cout << '\n';
@@ -113,19 +136,20 @@ void menu_user() {
     cout << "Masukkan Pilihan Anda : ";
     cin >> pilihu;
 
-    switch (pilihu) {
-        case 1:
+    switch (pilihu)
+    {
+    case 1:
         int carip;
         cout << "Masukkan Nomor Item : ";
         cin >> carip;
         tambahk(carip);
         break;
 
-        case 2: 
+    case 2:
         tampilk();
         break;
 
-        case 3:
+    case 3:
         int pilihm;
         cout << "Pilih Metode Pembayaran : " << endl;
         cout << "1. BCA" << endl;
@@ -133,26 +157,32 @@ void menu_user() {
         cout << "3. Dana" << endl;
         cout << "Masukkan pilihan anda : ";
         cin >> pilihm;
-        
-        if (pilihm == 1) {
+
+        if (pilihm == 1)
+        {
             tampil_BCA();
-        } else if (pilihm == 2) {
+        }
+        else if (pilihm == 2)
+        {
             tampil_GP();
-        } else if (pilihm == 3) {
+        }
+        else if (pilihm == 3)
+        {
             tampil_DN();
         }
 
         cout << "\n\nHarap Transfer ke salah satu rekening saja." << endl;
         system("pause");
-        break; 
-        default:
+        break;
+    default:
         cout << "Harap pilih sesuai pilihan." << endl;
         break;
     }
 }
 
-//Login kang
-void admin() {
+// Login kang
+void admin()
+{
     string username = "arrz";
     string password = "123";
     string user;
@@ -160,29 +190,32 @@ void admin() {
     cout << "\nAdmin ARRZ" << endl;
     cout << "Username: ";
     cin >> user;
-    if (user == username){
+    if (user == username)
+    {
         cout << "Password: ";
         cin >> pass;
-        if (pass == password){
+        if (pass == password)
+        {
             cout << "Berhasil login, akan redirect ke menu admin." << endl;
             sleep(2);
             system("cls");
             menu_admin();
         }
-        else {
+        else
+        {
             cout << "Incorrect Password!" << endl;
         }
     }
-    else {
+    else
+    {
         cout << "Incorrect Username!" << endl;
-    }   
+    }
 }
-
 
 int main(int argc, char const *argv[])
 {
     tambahp("Raka", 5000, 1);
-    awal:
+awal:
     system("cls");
     int pilih;
     cout << ">>>>> E-Counter ARRZ <<<<<" << endl;
@@ -191,13 +224,16 @@ int main(int argc, char const *argv[])
     cout << "Masukkan Pilihan : ";
     cin >> pilih;
 
-    if (pilih == 1) {
+    if (pilih == 1)
+    {
         admin();
         goto awal;
-    } else if (pilih == 2) {
+    }
+    else if (pilih == 2)
+    {
         menu_user();
         goto awal;
     }
-    
+
     return 0;
 }
