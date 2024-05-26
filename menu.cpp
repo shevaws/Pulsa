@@ -174,9 +174,9 @@ void admin() {
 
 int main(int argc, char const *argv[])
 {
-    system("cls");
     tambahp("Raka", 5000, 1);
     awal:
+    system("cls");
     int pilih;
     cout << ">>>>> E-Counter ARRZ <<<<<" << endl;
     cout << "Login Sebagai: " << endl;

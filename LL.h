@@ -239,7 +239,7 @@ bool kosongk() {
 }
 
 bool fullk() {
-    if (cart.atas == max_data) {
+    if (cart.atas == max_data - 1) {
         return 1;
     } else {
         return 0;
@@ -256,11 +256,11 @@ void tambahk(int cari) {
         cout << "Data tidak ditemukan." << endl;
     } else if (!fullk()) {
         cart.atas++;
-        cart.nama_data[max_data] = wanted->name;
-        cart.harga_produk[max_data] = wanted->price;
-        total += cart.harga_produk[max_data];
+        cart.nama_data[cart.atas] = wanted->name;
+        cart.harga_produk[cart.atas] = wanted->price;
+        total += cart.harga_produk[cart.atas];
 
-        cout << "Data telah ditambahkan ke keranjang.";
+        cout << "Data telah ditambahkan ke keranjang." << endl;
     }
 }
 
@@ -275,13 +275,13 @@ void hapusk() {
 
 void tampilk () {
     cout << "Isi Keranjang Anda : " << endl;
-    if (!kosong()) {
+    if (!kosongk()) {
         int count = 1;
         for (int i = cart.atas; i >= 0; i--) {
-            cout << count << ". " << cart.nama_data[i] << " " << cart.harga_produk[i];
+            cout << count << ". " << cart.nama_data[i] << "\t" << cart.harga_produk[i] << endl;
             count++;
         }
-        cout << "Total Belanjaanmu : " << total << endl;
+        cout << "\nTotal Belanjaanmu : " << total << endl;
     } else {
         cout << "Keranjangmu masih kosong nih" << endl;
     }
