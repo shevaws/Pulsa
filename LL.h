@@ -8,7 +8,7 @@ const int max_data = 99;
 
 // ?? ??? ???? ????? LINKED LIST ????? ???? ??? ?? //
 
-//Linked List Pulsa
+// Linked List Pulsa
 struct Item
 {
     string name;
@@ -18,14 +18,14 @@ struct Item
     Item *prev;
 };
 
-//Defined? apa namanya gatau pokoknya bikin variabel
+// Defined? apa namanya gatau pokoknya bikin variabel
 Item *head;
 Item *tail;
 Item *pulsa;
 Item *current;
 Item *wanted;
 
-//Buat Node Baru
+// Buat Node Baru
 void buat_pulsa(string nama, int harga, int id)
 {
     pulsa = new Item;
@@ -36,30 +36,38 @@ void buat_pulsa(string nama, int harga, int id)
     pulsa->prev = NULL;
 }
 
-//Inisialisasi
-void inisialisasi_pulsa() {
+// Inisialisasi
+void inisialisasi_pulsa()
+{
     head == NULL;
     tail == NULL;
 }
 
-//var isEmpty
-bool kosong() {
-    if (head == NULL && tail == NULL) {
+// var isEmpty
+bool kosong()
+{
+    if (head == NULL && tail == NULL)
+    {
         return true;
-    } else {
+    }
+    else
+    {
         return false;
     }
 }
 
-//Buat Jadiin CDLL gitu? gatau juga kalo sepemahamanku gt
+// Buat Jadiin CDLL gitu? gatau juga kalo sepemahamanku gt
 void tambahp(string nama, int harga, int id)
 {
     buat_pulsa(nama, harga, id);
 
-    if (kosong()) {
+    if (kosong())
+    {
         head = pulsa;
         tail = pulsa;
-    } else {
+    }
+    else
+    {
         tail->next = pulsa;
         pulsa->prev = tail;
         tail = pulsa;
@@ -69,20 +77,28 @@ void tambahp(string nama, int harga, int id)
     head->prev = tail;
 }
 
-//Edit Data
-void editp(int cari) {
-    if (kosong()) {
+// Edit Data
+void editp(int cari)
+{
+    if (kosong())
+    {
         cout << "Tidak ada data." << endl;
-    } else {
+    }
+    else
+    {
         wanted = head;
-        
-        while (wanted->next != head && wanted->id != cari) {
+
+        while (wanted->next != head && wanted->id != cari)
+        {
             wanted = wanted->next;
         }
 
-        if (wanted->id != cari) {
+        if (wanted->id != cari)
+        {
             cout << "Data tidak ada." << endl;
-        } else {
+        }
+        else
+        {
             cout << "Masukkan Nama : ";
             cin.ignore();
             getline(cin, wanted->name);
@@ -96,32 +112,47 @@ void editp(int cari) {
     }
 }
 
-//Hapus Data
-void hapusp (int cari) {
-    if (kosong()) {
+// Hapus Data
+void hapusp(int cari)
+{
+    if (kosong())
+    {
         cout << "Tidak ada data." << endl;
-    } else {
+    }
+    else
+    {
         wanted = head;
 
-        while (wanted->next != head && wanted->id != cari) {
+        while (wanted->next != head && wanted->id != cari)
+        {
             wanted = wanted->next;
         }
 
-        if (wanted->id != cari) {
+        if (wanted->id != cari)
+        {
             cout << "Data tidak ada." << endl;
-        } else if (wanted == head && wanted == tail) {
+        }
+        else if (wanted == head && wanted == tail)
+        {
             head = tail = NULL;
             cout << "\nData berhasil dihapus. " << endl;
-        } else {
-            if (wanted == head) {
+        }
+        else
+        {
+            if (wanted == head)
+            {
                 head = wanted->next;
                 tail->next = head;
                 head->prev = tail;
-            } else if (wanted == tail) {
+            }
+            else if (wanted == tail)
+            {
                 tail = wanted->prev;
                 tail->next = head;
                 head->prev = tail;
-            } else {
+            }
+            else
+            {
                 wanted->prev->next = wanted->next;
                 wanted->next->prev = wanted->prev;
             }
@@ -131,91 +162,110 @@ void hapusp (int cari) {
     }
 }
 
-//Ya masa gatau
-void tampil_pulsa_admin() {
-    if (kosong() == true) {
+// Ya masa gatau
+void tampil_pulsa_admin()
+{
+    if (kosong() == true)
+    {
         cout << "Tidak ada data." << endl;
-    } else {
+    }
+    else
+    {
         current = head;
-        do {
+        do
+        {
             cout << "Data : " << current->name << endl;
             cout << "Harga : " << current->price << endl;
             cout << "Id : " << current->id << endl;
             current = current->next;
-        } while (current!= head);
+        } while (current != head);
     }
 }
 
-//Ya masa gatau
-void tampil_pulsa() {
-    if (kosong() == true) {
+// Ya masa gatau
+void tampil_pulsa()
+{
+    if (kosong() == true)
+    {
         cout << "Tidak ada data." << endl;
-    } else {
+    }
+    else
+    {
         current = head;
-        do {
+        do
+        {
             cout << "Data : " << current->name << " Harga : " << current->price << endl;
             current = current->next;
-        } while (current!= head);
+        } while (current != head);
     }
 }
-
-
 
 // ?? ??? ???? ????? REKENING (ARRAY) ????? ???? ??? ?? //
 
-
-string BCA[99] = {"1223456789 A/N RAKA ANDRIY SHEVCHENKO", "123456789 A/N P", "123456789 A/N Q", ""};
-string GP[99] = {"1223456789 A/N RAKA ANDRIY SHEVCHENKO", "123456789 A/N P", "123456789 A/N Q", ""};
+string BCA[99] = {"1223456789 A/N RAKA ANDRIY SHEVCHENKO", "123456789 A/N P", "123456789 A/N Q"};
+string GP[99] = {"1223456789 A/N RAKA ANDRIY SHEVCHENKO", "123456789 A/N P", "123456789 A/N Q"};
 string DN[99] = {"1223456789 A/N RAKA ANDRIY SHEVCHENKO", "123456789 A/N P", "123456789 A/N Q"};
 
-//Ngitung Data
-int countNonEmpty(const string arr[]) {
+// Ngitung Data
+int countNonEmpty(const string arr[])
+{
     int count = 0;
-    while (arr[count] != "") {
+    while (arr[count] != "")
+    {
         ++count;
     }
     return count;
 }
 
+// Tambah Data
+void tambahr()
+{
+    string data;
+    int i = countNonEmpty(BCA);
+    
+    cout << "Masukkan nomor rekening baru dan A/N nya." << endl;
+    cin.ignore(); 
+    getline(cin, data);
+    BCA[i] = data;
 
-//Ambil Data
-void rek() {
-    int jBCA = countNonEmpty(BCA);
-    int jGP = countNonEmpty(GP);
-    int jDN = countNonEmpty(DN);
-    // Do something with the collected data, if needed
+    cout << "Nomor rekening berhasil ditambahkan." << endl;
 }
 
-//Masa gatau
-void tampil_BCA() {
+// Masa gatau
+void tampil_BCA()
+{
     int jBCA = countNonEmpty(BCA);
-    for (int i = 0; i < jBCA; i++) {
+    for (int i = 0; i < jBCA; i++)
+    {
         cout << BCA[i] << endl;
     }
 }
 
-//Masa gatau
-void tampil_GP() {
+// Masa gatau
+void tampil_GP()
+{
     int jGP = countNonEmpty(GP);
-    for (int i = 0; i < jGP; i++) {
+    for (int i = 0; i < jGP; i++)
+    {
         cout << GP[i] << endl;
     }
 }
 
-//Masa gatau
-void tampil_DN() {
+// Masa gatau
+void tampil_DN()
+{
     int jDN = countNonEmpty(DN);
-    for (int i = 0; i < jDN; i++) {
+    for (int i = 0; i < jDN; i++)
+    {
         cout << DN[i] << endl;
     }
 }
-
 
 // ?? ??? ???? ????? KERANJANG (STACK) ????? ???? ??? ?? //
 
 int total = 0;
 
-//Struct Keranjang
+// Struct Keranjang
 struct Keranjang
 {
     string nama_data[max_data];
@@ -230,31 +280,44 @@ void inisialisasi_keranjang()
     tail = NULL;
 }
 
-bool kosongk() {
-    if (cart.atas == -1) {
+bool kosongk()
+{
+    if (cart.atas == -1)
+    {
         return 1;
-    } else {
+    }
+    else
+    {
         return 0;
     }
 }
 
-bool fullk() {
-    if (cart.atas == max_data - 1) {
+bool fullk()
+{
+    if (cart.atas == max_data - 1)
+    {
         return 1;
-    } else {
+    }
+    else
+    {
         return 0;
     }
 }
 
-void tambahk(int cari) {
+void tambahk(int cari)
+{
     wanted = head;
-    while (wanted != NULL && wanted->id != cari) {
+    while (wanted != NULL && wanted->id != cari)
+    {
         wanted = wanted->next;
     }
 
-    if (wanted == NULL) {
+    if (wanted == NULL)
+    {
         cout << "Data tidak ditemukan." << endl;
-    } else if (!fullk()) {
+    }
+    else if (!fullk())
+    {
         cart.atas++;
         cart.nama_data[cart.atas] = wanted->name;
         cart.harga_produk[cart.atas] = wanted->price;
@@ -264,25 +327,34 @@ void tambahk(int cari) {
     }
 }
 
-void hapusk() {
-    if (!kosongk()) {
+void hapusk()
+{
+    if (!kosongk())
+    {
         cout << "Data berhasil dihapus." << endl;
         cart.atas--;
-    } else {
+    }
+    else
+    {
         cout << "Data Kosong." << endl;
     }
 }
 
-void tampilk () {
+void tampilk()
+{
     cout << "Isi Keranjang Anda : " << endl;
-    if (!kosongk()) {
+    if (!kosongk())
+    {
         int count = 1;
-        for (int i = cart.atas; i >= 0; i--) {
+        for (int i = cart.atas; i >= 0; i--)
+        {
             cout << count << ". " << cart.nama_data[i] << "\t" << cart.harga_produk[i] << endl;
             count++;
         }
         cout << "\nTotal Belanjaanmu : " << total << endl;
-    } else {
+    }
+    else
+    {
         cout << "Keranjangmu masih kosong nih" << endl;
     }
 }

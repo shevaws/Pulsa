@@ -57,21 +57,28 @@ void menu2(int pilih) {
     cout << ">>>>> Sub-Menu Rekening Tujuan <<<<<" << endl;
     cout << '\n';
     cout << "BCA : " << endl;
-    rek();
     tampil_BCA();
     cout << '\n';
     cout << "Gopay : " << endl;
-    rek();
     tampil_GP();
     cout << '\n';
     cout << "Dana : " << endl;
-    rek();
     tampil_DN();
     cout << "\n1. Tambah Rekening" << endl;
     cout << "2. Edit Rekening" << endl;
     cout << "3. Hapus Rekening" << endl;
     cout << "Masukkan pilihan : ";
     cin >> pilihan;
+
+    switch (pilihan) {
+    case 1:
+        tambahr();
+        system("pause");
+        break;
+    
+    default:
+        break;
+    }
 }
 
 //Ya gitu
@@ -128,18 +135,18 @@ void menu_user() {
         cin >> pilihm;
         
         if (pilihm == 1) {
-            rek();
             tampil_BCA();
         } else if (pilihm == 2) {
-            rek();
             tampil_GP();
         } else if (pilihm == 3) {
-            rek();
             tampil_DN();
         }
-        
+
+        cout << "\n\nHarap Transfer ke salah satu rekening saja." << endl;
+        system("pause");
+        break; 
         default:
-        cout << "Harap pilih sesuai pilihan.";
+        cout << "Harap pilih sesuai pilihan." << endl;
         break;
     }
 }
