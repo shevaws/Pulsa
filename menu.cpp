@@ -30,6 +30,7 @@ menu1:
         cin >> id;
 
         tambahp(name, price, id);
+        sleep(1);
         goto menu1;
     }
     else if (pilihan == 2)
@@ -40,6 +41,7 @@ menu1:
         cin >> cari;
 
         editp(cari);
+        sleep(1);
         goto menu1;
     }
     else if (pilihan == 3)
@@ -50,6 +52,7 @@ menu1:
         cin >> cari;
 
         hapusp(cari);
+        sleep(1);
         goto menu1;
     }
     else if (pilihan == 0)
@@ -60,6 +63,7 @@ menu1:
     else
     {
         cout << "Harap pilih pilihan yang tersedia." << endl;
+        sleep(1);
         goto menu1;
     }
 }
@@ -117,6 +121,7 @@ menu2:
         else
         {
             cout << "Harap pilh sesuai pilihan yang ada." << endl;
+            sleep(1);
             goto menu2;
         }
 
@@ -165,6 +170,7 @@ menu2:
         break;
     default:
         cout << "Harap pilih sesuai pilihan." << endl;
+        sleep(1);
         break;
     }
 }
@@ -194,9 +200,9 @@ void menu_admin()
         }
         else if (pilih == 3)
         {
-            tampilo();
+            // tampilo();
             cout << endl;
-            saveToFile();
+            readFile();
             system("pause");
         }
     } while (pilih != 0);
@@ -229,6 +235,7 @@ awalu:
             cout << "Masukkan Nomor Item : ";
             cin >> carip;
             tambahk(carip);
+            sleep(1);
             break;
 
         case 2:
@@ -250,6 +257,7 @@ awalu:
             {
                 tampil_BCA();
                 tambaho();
+                saveToFile();
             }
             else if (pilihm == 2)
             {

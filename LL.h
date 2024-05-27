@@ -524,12 +524,54 @@ void tampilo()
 // Save Orderan ke File .txt
 void saveToFile()
 {
-    ofstream myfile("Orderan.txt");
-    if (myfile.is_open())
-    {
-        for (int i = order.depan; i < order.belakang; i++)
-        {
-            myfile << "Nama Pesanan : " << order.nama_pesanan[i] << " Nomor Pembeli : " << nom << endl;
+    ofstream outfile("Orderan.txt", ios::out);
+    if (!outfile) {
+        cerr << "Error opening file for writing." << endl;
+        return;
+    }
+    outfile << cart.atas << endl;
+    for (int i = cart.atas; i > -1; i--) {
+        outfile << cart.nama_data[i] << endl;
+        outfile << cart.harga_produk[i] << endl;
+    }
+    outfile.close();
+}
+
+// Read Orderan dari file .txt
+void readFile()
+{
+    ifstream infile("Orderan.txt", ios::app);
+    if (!infile) {
+        cerr << "Error opening file for reading." << endl;
+        return;
+    }
+    while (infile >> cart.atas) {
+        infile.ignore();
+        for (int i = cart.atas; i > -1; i--) {
+            getline(infile, cart.nama_data[i]);
+            infile >> cart.harga_produk[i];
+            infile.ignore();
+        }
+        cout << "Keranjang atas: " << cart.atas << endl;
+        for (int i = cart.atas; i > -1; i--) {
+            cout << "Nama Produk: " << cart.nama_data[i] << ", Harga: " << cart.harga_produk[i] << endl;
         }
     }
+    infile.close();
 }
+
+// // Save Orderan ke File .txt
+// void saveToFile()
+// {
+//     ofstream outfile("Orderan.bin", ios::binary | ios::app);
+//     outfile.write(reinterpret_cast<char *>(&cart), sizeof(cart));
+//     outfile.close();
+// }
+
+// // Save Orderan ke file .bin
+// void readFile()
+// {
+//     ifstream infile("Orderan.bin", ios::binary | ios::app);
+//     infile.read(reinterpret_cast<char *>(&cart), sizeof(cart));
+//     infile.close();
+// }
