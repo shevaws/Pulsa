@@ -196,6 +196,7 @@ void menu_admin()
         {
             tampilo();
             cout << endl;
+            saveToFile();
             system("pause");
         }
     } while (pilih != 0);

@@ -1,6 +1,8 @@
 #include <iostream>
 #include <string>
 #include <unistd.h>
+#include <sstream>
+#include <fstream>
 
 using namespace std;
 
@@ -500,6 +502,7 @@ void tambaho()
     system("pause");
 }
 
+// Ya gitu
 void tampilo()
 {
     if (kosongo() == 0)
@@ -515,5 +518,18 @@ void tampilo()
     else
     {
         cout << "Tidak ada pesanan. " << endl;
+    }
+}
+
+// Save Orderan ke File .txt
+void saveToFile()
+{
+    ofstream myfile("Orderan.txt");
+    if (myfile.is_open())
+    {
+        for (int i = order.depan; i < order.belakang; i++)
+        {
+            myfile << "Nama Pesanan : " << order.nama_pesanan[i] << " Nomor Pembeli : " << nom << endl;
+        }
     }
 }
