@@ -179,6 +179,7 @@ void menu_admin()
         cout << "Menu Admin ARRZ" << endl;
         cout << "1. Edit Pulsa" << endl;
         cout << "2. Edit Rekening" << endl;
+        cout << "3. Lihat Pesanan" << endl;
         cout << "0. Logout" << endl;
         cout << "Masukkan pilihan : ";
         cin >> pilih;
@@ -191,70 +192,80 @@ void menu_admin()
         {
             menu2(2);
         }
+        else if (pilih == 3)
+        {
+            tampilo();
+            cout << endl;
+            system("pause");
+        }
     } while (pilih != 0);
 }
 
 // Sama aja
 void menu_user()
 {
+awalu:
     int pilihu;
-    system("cls");
-    cout << "===== Selamat Datang di Counter ARRZ =====" << endl;
-    cout << "Pulsa Yang Tersedia : " << endl;
-    cout << '\n';
-    tampil_pulsa();
-    cout << '\n';
-    cout << "1. Beli Pulsa" << endl;
-    cout << "2. Cek Keranjang" << endl;
-    cout << "3. Bayar" << endl;
-    cout << "Masukkan Pilihan Anda : ";
-    cin >> pilihu;
-
-    switch (pilihu)
+    do
     {
-    case 1:
-        int carip;
-        cout << "Masukkan Nomor Item : ";
-        cin >> carip;
-        tambahk(carip);
-        break;
+        system("cls");
+        cout << "===== Selamat Datang di Counter ARRZ =====" << endl;
+        cout << "Pulsa Yang Tersedia : " << endl;
+        cout << '\n';
+        tampil_pulsa();
+        cout << '\n';
+        cout << "1. Beli Pulsa" << endl;
+        cout << "2. Cek Keranjang" << endl;
+        cout << "3. Bayar" << endl;
+        cout << "0. Keluar" << endl;
+        cout << "Masukkan Pilihan Anda : ";
+        cin >> pilihu;
 
-    case 2:
-        tampilk();
-        break;
-
-    case 3:
-        int pilihm;
-        cout << "Pilih Metode Pembayaran : " << endl;
-        cout << "1. BCA" << endl;
-        cout << "2. Gopay" << endl;
-        cout << "3. Dana" << endl;
-        cout << "Masukkan pilihan anda : ";
-        cin >> pilihm;
-
-        if (pilihm == 1)
+        switch (pilihu)
         {
-            tampil_BCA();
-        }
-        else if (pilihm == 2)
-        {
-            tampil_GP();
-        }
-        else if (pilihm == 3)
-        {
-            tampil_DN();
-        }
+        case 1:
+            int carip;
+            cout << "Masukkan Nomor Item : ";
+            cin >> carip;
+            tambahk(carip);
+            break;
 
-        intptr_t nom;
-        cout << "\n\nHarap Transfer ke salah satu rekening saja." << endl;
-        cout << "Harap masukkan nomor tujuan : ";
-        cin >> nom;
-        system("pause");
-        break;
-    default:
-        cout << "Harap pilih sesuai pilihan." << endl;
-        break;
-    }
+        case 2:
+            tampilk();
+            cout << endl;
+            system("pause");
+            break;
+
+        case 3:
+            int pilihm;
+            cout << "Pilih Metode Pembayaran : " << endl;
+            cout << "1. BCA" << endl;
+            cout << "2. Gopay" << endl;
+            cout << "3. Dana" << endl;
+            cout << "Masukkan pilihan anda : ";
+            cin >> pilihm;
+
+            if (pilihm == 1)
+            {
+                tampil_BCA();
+                tambaho();
+            }
+            else if (pilihm == 2)
+            {
+                tampil_GP();
+                tambaho();
+            }
+            else if (pilihm == 3)
+            {
+                tampil_DN();
+                tambaho();
+            }
+            break;
+        default:
+            cout << "Harap pilih sesuai pilihan." << endl;
+            break;
+        }
+    } while (pilihu != 0);
 }
 
 // Login kang

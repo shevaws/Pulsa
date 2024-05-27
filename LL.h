@@ -192,11 +192,13 @@ void tampil_pulsa()
     }
     else
     {
+        int count = 1;
         current = head;
         do
         {
-            cout << "Data : " << current->name << " Harga : " << current->price << endl;
+            cout << count << ". " << "Data : " << current->name << " Harga : " << current->price << endl;
             current = current->next;
+            count++;
         } while (current != head);
     }
 }
@@ -462,6 +464,9 @@ bool fullo()
     }
 }
 
+// Nomor Telepon Pembeli
+intptr_t nom;
+
 // Tambah data pesanan
 void tambaho()
 {
@@ -471,22 +476,28 @@ void tambaho()
         for (int i = cart.atas; i > -1; i--)
         {
             order.nama_pesanan[order.belakang] = cart.nama_data[i];
+            order.belakang++;
             cart.atas--;
-            order.belakang--;
         }
     }
     else
     {
         if (fullo() == 0)
         {
+            order.depan = order.belakang = 0;
             for (int i = cart.atas; i > -1; i--)
             {
                 order.nama_pesanan[order.belakang] = cart.nama_data[i];
+                order.belakang++;
                 cart.atas--;
-                order.belakang--;
             }
         }
     }
+    cout << "\n\nHarap Transfer ke salah satu rekening saja." << endl;
+    cout << "Harap masukkan nomor tujuan : ";
+    cin >> nom;
+    cout << "\nTerima Kasih Telah Membeli Produk Kami." << endl;
+    system("pause");
 }
 
 void tampilo()
@@ -497,7 +508,7 @@ void tampilo()
         int count = 1;
         for (int i = order.depan; i < order.belakang; i++)
         {
-            cout << count << ". " << order.nama_pesanan[i] << endl;
+            cout << count << ". " << order.nama_pesanan[i] << " Nomor Pembeli : " << nom << endl;
             count++;
         }
     }
