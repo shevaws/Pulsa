@@ -178,6 +178,7 @@ void tampil_pulsa_admin()
             cout << "Harga : " << current->price << endl;
             cout << "Id : " << current->id << endl;
             current = current->next;
+            cout << endl;
         } while (current != head);
     }
 }
@@ -259,26 +260,32 @@ void tambahdn()
     cout << "Nomor rekening berhasil ditambahkan." << endl;
 }
 
-//Hapus Data
-void hapusbca(int cari) {
+// Hapus Data
+void hapusbca(int cari)
+{
     int j = countNonEmpty(BCA);
-    for (int i = cari - 1; i < j; i++) {
+    for (int i = cari - 1; i < j; i++)
+    {
         BCA[i] = BCA[i + 1];
     }
 }
 
-//Hapus Data
-void hapusgp(int cari) {
+// Hapus Data
+void hapusgp(int cari)
+{
     int j = countNonEmpty(GP);
-    for (int i = cari - 1; i < j; i++) {
+    for (int i = cari - 1; i < j; i++)
+    {
         GP[i] = GP[i + 1];
     }
 }
 
-//Hapus Data
-void hapusdn(int cari) {
+// Hapus Data
+void hapusdn(int cari)
+{
     int j = countNonEmpty(DN);
-    for (int i = cari - 1; i < j; i++) {
+    for (int i = cari - 1; i < j; i++)
+    {
         DN[i] = DN[i + 1];
     }
 }
@@ -408,5 +415,94 @@ void tampilk()
     else
     {
         cout << "Keranjangmu masih kosong nih" << endl;
+    }
+}
+
+// ?? ??? ???? ????? PESANAN (QUEUE) ????? ???? ??? ?? //
+
+// Struct Pesanan
+struct Pesanan
+{
+    string nama_pesanan[max_data];
+    int depan = -1;
+    int belakang = -1;
+};
+Pesanan order;
+
+// Iya
+void inisialisasi_order()
+{
+    head = NULL;
+    tail = NULL;
+}
+
+// If kosong
+bool kosongo()
+{
+    if (order.belakang == -1)
+    {
+        return 1;
+    }
+    else
+    {
+        return 0;
+    }
+}
+
+// If full
+bool fullo()
+{
+    if (order.belakang == max_data - 1)
+    {
+        return 1;
+    }
+    else
+    {
+        return 0;
+    }
+}
+
+// Tambah data pesanan
+void tambaho()
+{
+    if (kosongo() == 1)
+    {
+        order.depan = order.belakang = 0;
+        for (int i = cart.atas; i > -1; i--)
+        {
+            order.nama_pesanan[order.belakang] = cart.nama_data[i];
+            cart.atas--;
+            order.belakang--;
+        }
+    }
+    else
+    {
+        if (fullo() == 0)
+        {
+            for (int i = cart.atas; i > -1; i--)
+            {
+                order.nama_pesanan[order.belakang] = cart.nama_data[i];
+                cart.atas--;
+                order.belakang--;
+            }
+        }
+    }
+}
+
+void tampilo()
+{
+    if (kosongo() == 0)
+    {
+        cout << "Daftar Pesanan : " << endl;
+        int count = 1;
+        for (int i = order.depan; i < order.belakang; i++)
+        {
+            cout << count << ". " << order.nama_pesanan[i] << endl;
+            count++;
+        }
+    }
+    else
+    {
+        cout << "Tidak ada pesanan. " << endl;
     }
 }
