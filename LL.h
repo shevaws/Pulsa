@@ -521,37 +521,43 @@ void tampilo()
     }
 }
 
-
 // Save Orderan ke File .txt
 void saveToFile()
 {
     ofstream outfile("Orderan.txt", ios::app);
 
-    if (!outfile) {
+    if (!outfile)
+    {
         cerr << "Failed to open file for writing." << endl;
         return;
     }
 
-    if (cart.atas == -1) {
+    if (order.belakang == -1)
+    {
         outfile << "Cart is empty." << endl;
-    } else {
-        for (int i = 0; i <= cart.atas; ++i) {
-            outfile << "Item Name: " << cart.nama_data[i] << endl;
-            outfile << "Price: " << cart.harga_produk[i] << endl;
+    }
+    else
+    {
+        for (int i = 0; i <= order.belakang - 1; ++i)
+        {
+            outfile << "-------------------------" << endl;
+            outfile << "Item Name: " << order.nama_pesanan[i] << endl;
+            outfile << "Nomor Tujuan: " << nom << endl;
             outfile << "-------------------------" << endl;
         }
     }
 
     outfile.close();
-    if (!outfile.good()) {
+    if (!outfile.good())
+    {
         cerr << "Error occurred during writing to file." << endl;
     }
 }
 
-// // Save Orderan ke file .bin
-// void readFile()
-// {
-//     ifstream infile("Orderan.bin", ios::binary | ios::app);
-//     infile.read(reinterpret_cast<char *>(&cart), sizeof(cart));
-//     infile.close();
-// }
+// Read Orderan dari file .txt
+void readFile()
+{
+    ifstream infile("Orderan.bin", ios::binary | ios::app);
+    infile.read(reinterpret_cast<char *>(&cart), sizeof(cart));
+    infile.close();
+}

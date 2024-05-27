@@ -4,6 +4,7 @@
 void menu1(int pilih)
 {
 menu1:
+    system("cls");
     int pilihan;
     cout << ">>>>> Sub-Menu Pulsa <<<<<" << endl;
     cout << '\n';
@@ -72,6 +73,7 @@ menu1:
 void menu2(int pilih)
 {
 menu2:
+    system("cls");
     int pilihan;
     cout << ">>>>> Sub-Menu Rekening Tujuan <<<<<" << endl;
     cout << '\n';
