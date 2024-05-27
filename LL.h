@@ -267,6 +267,7 @@ void hapusbca(int cari) {
     }
 }
 
+//Hapus Data
 void hapusgp(int cari) {
     int j = countNonEmpty(GP);
     for (int i = cari - 1; i < j; i++) {
@@ -274,6 +275,7 @@ void hapusgp(int cari) {
     }
 }
 
+//Hapus Data
 void hapusdn(int cari) {
     int j = countNonEmpty(DN);
     for (int i = cari - 1; i < j; i++) {

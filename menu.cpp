@@ -11,6 +11,7 @@ menu1:
     cout << "\n1. Tambah Pulsa" << endl;
     cout << "2. Edit Pulsa" << endl;
     cout << "3. Hapus Pulsa" << endl;
+    cout << "0. Kembali" << endl;
     cout << "Masukkan pilihan : ";
     cin >> pilihan;
 
@@ -51,6 +52,11 @@ menu1:
         hapusp(cari);
         goto menu1;
     }
+    else if (pilihan == 0)
+    {
+        return;
+    }
+
     else
     {
         cout << "Harap pilih pilihan yang tersedia." << endl;
@@ -75,24 +81,88 @@ menu2:
     tampil_DN();
     cout << "\n1. Tambah Rekening" << endl;
     cout << "2. Hapus Rekening" << endl;
+    cout << "0. Kembali" << endl;
     cout << "Masukkan pilihan : ";
     cin >> pilihan;
 
     switch (pilihan)
     {
     case 1:
-        tambahbca();
-        system("pause");
-        break;
+        cout << "Harap pilih method yang ingin ditambahkan : ";
+        int p;
+        cin >> p;
+        if (p == 1)
+        {
+            tambahbca();
+            sleep(1);
+            goto menu2;
+        }
+        else if (p == 2)
+        {
+            tambahgp();
+            sleep(1);
+            goto menu2;
+        }
+        else if (p == 3)
+        {
+            tambahdn();
+            sleep(1);
+            goto menu2;
+        }
+        else if (p == 0)
+        {
+            return;
+        }
 
+        else
+        {
+            cout << "Harap pilh sesuai pilihan yang ada." << endl;
+            goto menu2;
+        }
+
+        break;
     case 2:
-        int carir;
-        cout << "Pilih index data yang ingin dihapus : ";
-        cin >> carir;
-        hapusbca(carir);
-        system("pause");
-        break;
+        int m;
+        cout << "Method mana yang ingin dihapus rekeningnya (index) : ";
+        cin >> m;
+        if (m == 1)
+        {
+            tampil_BCA();
+            cout << endl;
+            int carir;
+            cout << "Pilih index data yang ingin dihapus : ";
+            cin >> carir;
+            hapusbca(carir);
+            cout << "Data berhasil dihapus." << endl;
+            sleep(1);
+            goto menu2;
+        }
+        else if (m == 2)
+        {
+            tampil_GP();
+            cout << endl;
+            int carir;
+            cout << "Pilih index data yang ingin dihapus : ";
+            cin >> carir;
+            hapusgp(carir);
+            cout << "Data berhasil dihapus." << endl;
+            sleep(1);
+            goto menu2;
+        }
+        else if (m == 3)
+        {
+            tampil_DN();
+            cout << endl;
+            int carir;
+            cout << "Pilih index data yang ingin dihapus : ";
+            cin >> carir;
+            hapusdn(carir);
+            cout << "Data berhasil dihapus." << endl;
+            sleep(1);
+            goto menu2;
+        }
 
+        break;
     default:
         cout << "Harap pilih sesuai pilihan." << endl;
         break;
@@ -102,22 +172,26 @@ menu2:
 // Ya gitu
 void menu_admin()
 {
-    system("cls");
     int pilih;
-    cout << "Menu Admin ARRZ" << endl;
-    cout << "1. Edit Pulsa" << endl;
-    cout << "2. Edit Rekening" << endl;
-    cout << "Masukkan pilihan : ";
-    cin >> pilih;
+    do
+    {
+        system("cls");
+        cout << "Menu Admin ARRZ" << endl;
+        cout << "1. Edit Pulsa" << endl;
+        cout << "2. Edit Rekening" << endl;
+        cout << "0. Logout" << endl;
+        cout << "Masukkan pilihan : ";
+        cin >> pilih;
 
-    if (pilih == 1)
-    {
-        menu1(1);
-    }
-    else if (pilih == 2)
-    {
-        menu2(2);
-    }
+        if (pilih == 1)
+        {
+            menu1(1);
+        }
+        else if (pilih == 2)
+        {
+            menu2(2);
+        }
+    } while (pilih != 0);
 }
 
 // Sama aja
@@ -171,7 +245,10 @@ void menu_user()
             tampil_DN();
         }
 
+        intptr_t nom;
         cout << "\n\nHarap Transfer ke salah satu rekening saja." << endl;
+        cout << "Harap masukkan nomor tujuan : ";
+        cin >> nom;
         system("pause");
         break;
     default:
