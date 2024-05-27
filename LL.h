@@ -521,52 +521,32 @@ void tampilo()
     }
 }
 
+
 // Save Orderan ke File .txt
 void saveToFile()
 {
-    ofstream outfile("Orderan.txt", ios::out);
+    ofstream outfile("Orderan.txt", ios::app);
+
     if (!outfile) {
-        cerr << "Error opening file for writing." << endl;
+        cerr << "Failed to open file for writing." << endl;
         return;
     }
-    outfile << cart.atas << endl;
-    for (int i = cart.atas; i > -1; i--) {
-        outfile << cart.nama_data[i] << endl;
-        outfile << cart.harga_produk[i] << endl;
+
+    if (cart.atas == -1) {
+        outfile << "Cart is empty." << endl;
+    } else {
+        for (int i = 0; i <= cart.atas; ++i) {
+            outfile << "Item Name: " << cart.nama_data[i] << endl;
+            outfile << "Price: " << cart.harga_produk[i] << endl;
+            outfile << "-------------------------" << endl;
+        }
     }
+
     outfile.close();
-}
-
-// Read Orderan dari file .txt
-void readFile()
-{
-    ifstream infile("Orderan.txt", ios::app);
-    if (!infile) {
-        cerr << "Error opening file for reading." << endl;
-        return;
+    if (!outfile.good()) {
+        cerr << "Error occurred during writing to file." << endl;
     }
-    while (infile >> cart.atas) {
-        infile.ignore();
-        for (int i = cart.atas; i > -1; i--) {
-            getline(infile, cart.nama_data[i]);
-            infile >> cart.harga_produk[i];
-            infile.ignore();
-        }
-        cout << "Keranjang atas: " << cart.atas << endl;
-        for (int i = cart.atas; i > -1; i--) {
-            cout << "Nama Produk: " << cart.nama_data[i] << ", Harga: " << cart.harga_produk[i] << endl;
-        }
-    }
-    infile.close();
 }
-
-// // Save Orderan ke File .txt
-// void saveToFile()
-// {
-//     ofstream outfile("Orderan.bin", ios::binary | ios::app);
-//     outfile.write(reinterpret_cast<char *>(&cart), sizeof(cart));
-//     outfile.close();
-// }
 
 // // Save Orderan ke file .bin
 // void readFile()

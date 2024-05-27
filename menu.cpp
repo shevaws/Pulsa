@@ -200,9 +200,8 @@ void menu_admin()
         }
         else if (pilih == 3)
         {
-            // tampilo();
+            tampilo();
             cout << endl;
-            readFile();
             system("pause");
         }
     } while (pilih != 0);
@@ -263,11 +262,13 @@ awalu:
             {
                 tampil_GP();
                 tambaho();
+                saveToFile();
             }
             else if (pilihm == 3)
             {
                 tampil_DN();
                 tambaho();
+                saveToFile();
             }
             break;
         default:
