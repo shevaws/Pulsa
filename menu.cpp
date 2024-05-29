@@ -8,7 +8,9 @@ menu1:
     int pilihan;
     cout << ">>>>> Sub-Menu Pulsa <<<<<" << endl;
     cout << '\n';
-    tampil_pulsa_admin();
+    // tampil_pulsa_admin();
+    read();
+    display();
     cout << "\n1. Tambah Pulsa" << endl;
     cout << "2. Edit Pulsa" << endl;
     cout << "3. Hapus Pulsa" << endl;
@@ -31,6 +33,8 @@ menu1:
         cin >> id;
 
         tambahp(name, price, id);
+        stfData(name, price, id);
+
         sleep(1);
         goto menu1;
     }
@@ -220,7 +224,9 @@ awalu:
         cout << "===== Selamat Datang di Counter ARRZ =====" << endl;
         cout << "Pulsa Yang Tersedia : " << endl;
         cout << '\n';
-        tampil_pulsa();
+        // tampil_pulsa();
+        read();
+        display();
         cout << '\n';
         cout << "1. Beli Pulsa" << endl;
         cout << "2. Cek Keranjang" << endl;
@@ -314,7 +320,7 @@ void admin()
 
 int main(int argc, char const *argv[])
 {
-    tambahp("Raka", 5000, 1);
+    // tambahp("Raka", 5000, 1);
 awal:
     system("cls");
     int pilih;

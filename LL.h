@@ -3,6 +3,7 @@
 #include <unistd.h>
 #include <sstream>
 #include <fstream>
+#include <iomanip>
 
 using namespace std;
 
@@ -534,14 +535,14 @@ void saveToFile()
 
     if (order.belakang == -1)
     {
-        outfile << "Cart is empty." << endl;
+        outfile << "Tidak ada pesanan." << endl;
     }
     else
     {
         for (int i = 0; i <= order.belakang - 1; ++i)
         {
             outfile << "-------------------------" << endl;
-            outfile << "Item Name: " << order.nama_pesanan[i] << endl;
+            outfile << "Nama Item: " << order.nama_pesanan[i] << endl;
             outfile << "Nomor Tujuan: " << nom << endl;
             outfile << "-------------------------" << endl;
         }
@@ -554,10 +555,100 @@ void saveToFile()
     }
 }
 
-// Read Orderan dari file .txt
-void readFile()
+// Dummy data dari file .txt
+
+// function protypes
+void read();
+
+// Baca data dari .txt
+void read()
 {
-    ifstream infile("Orderan.bin", ios::binary | ios::app);
-    infile.read(reinterpret_cast<char *>(&cart), sizeof(cart));
-    infile.close();
+    head = tail = NULL;                  // inisialisasi
+    string filename("Data.txt");         // Inisialisasi Nama File
+    ifstream inFile(filename, ios::app); // Load dari file
+
+    if (inFile.fail()) // Kalo file gabisa dibuka
+    {
+        cout << "File tidak dapat dibuka" << endl;
+        cout << "Harap cek file dengan benar." << endl;
+        exit(1);
+    }
+
+    while (true) // Kalo bisa
+    {
+        // Proses buat node baru
+        current = new Item;
+        current->next = NULL;
+        // Masukin data dari .txt ke node baru
+        inFile >> current->name;
+        inFile >> current->price;
+        inFile >> current->id;
+
+        // Kalo gabisa
+        if (inFile.fail())
+        {
+            delete current; // hapus data
+            break;
+        }
+
+        // Masukin data ke LL
+        if (head == NULL) // Kalo data pertama
+        {
+            head = current;
+        }
+        else // Kalo bukan data pertama
+        {
+            tail->next = current;
+        }
+        tail = current; // Ya gitulah jir
+    }
+    inFile.close(); // Kalo uda ya tutup filenya'
+}
+
+// Menampilkan datanya
+void display()
+{
+    Item *ptr;
+    ptr = head;
+    while (ptr != NULL)
+    {
+        cout << "Nama Data : " << ptr->name << endl;
+        cout << "Harga : " << ptr->price << endl;
+        ptr = ptr->next;
+    }
+}
+
+// Save Orderan ke File .txt
+void stfData(string name, int price, int id)
+{
+    ofstream outfile("Data.txt", ios::app);
+
+    if (!outfile)
+    {
+        cerr << "Failed to open file for writing." << endl;
+        return;
+    }
+
+    if (head == NULL && tail == NULL)
+    {
+        outfile << "Tidak ada pesanan." << endl;
+    }
+    else
+    {
+        Item *ptr;
+        ptr = head;
+        if (ptr != NULL)
+        {
+            outfile << ptr->name << endl;
+            outfile << ptr->price << endl;
+            outfile << ptr->id << endl;
+            ptr = ptr->next;
+        }
+    }
+
+    outfile.close();
+    if (!outfile.good())
+    {
+        cerr << "Error occurred during writing to file." << endl;
+    }
 }
