@@ -62,6 +62,7 @@ bool kosong()
 // Buat Jadiin CDLL gitu? gatau juga kalo sepemahamanku gt
 void tambahp(string nama, int harga, int id)
 {
+    pulsa = nullptr;
     buat_pulsa(nama, harga, id);
 
     if (kosong())
@@ -78,6 +79,36 @@ void tambahp(string nama, int harga, int id)
 
     tail->next = head;
     head->prev = tail;
+
+    ofstream outfile("Data.txt", ios::app);
+
+    if (!outfile)
+    {
+        cerr << "Failed to open file for writing." << endl;
+        return;
+    }
+
+    if (head == NULL && tail == NULL)
+    {
+        outfile << "Tidak ada pesanan." << endl;
+    }
+    else
+    {
+        if (pulsa != nullptr)
+        {
+
+            outfile << pulsa->name << endl;
+            outfile << pulsa->price << endl;
+            outfile << pulsa->id << endl;
+            // current = current->next;
+        }
+    }
+
+    outfile.close();
+    if (!outfile.good())
+    {
+        cerr << "Error occurred during writing to file." << endl;
+    }
 }
 
 // Edit Data
@@ -557,15 +588,12 @@ void saveToFile()
 
 // Dummy data dari file .txt
 
-// function protypes
-void read();
-
 // Baca data dari .txt
 void read()
 {
     head = tail = NULL;                  // inisialisasi
     string filename("Data.txt");         // Inisialisasi Nama File
-    ifstream inFile(filename, ios::app); // Load dari file
+    ifstream inFile(filename); // Load dari file
 
     if (inFile.fail()) // Kalo file gabisa dibuka
     {
@@ -574,35 +602,70 @@ void read()
         exit(1);
     }
 
-    while (true) // Kalo bisa
+    string line;
+    while (getline(inFile, line)) // Kalo bisa
     {
         // Proses buat node baru
         current = new Item;
         current->next = NULL;
-        // Masukin data dari .txt ke node baru
-        inFile >> current->name;
-        inFile >> current->price;
-        inFile >> current->id;
+        current->prev = NULL;
 
-        // Kalo gabisa
-        if (inFile.fail())
-        {
-            delete current; // hapus data
+        current->name =line;
+        // Read the price
+        if (!getline(inFile, line)) {
+            delete current;
             break;
         }
+        current->price = stoi(line);
+
+        // Read the id
+        if (!getline(inFile, line)) {
+            delete current;
+            break;
+        }
+        current->id = stoi(line);
 
         // Masukin data ke LL
         if (head == NULL) // Kalo data pertama
         {
             head = current;
+            tail = current;
         }
         else // Kalo bukan data pertama
         {
             tail->next = current;
+            current->prev = tail;
+            tail = current;
         }
         tail = current; // Ya gitulah jir
     }
-    inFile.close(); // Kalo uda ya tutup filenya'
+    inFile.close(); // Kalo uda ya tutup filenya
+
+    if (head != nullptr && tail != nullptr)
+    {
+        tail->next = head;
+        head->prev = tail;
+    }
+}
+
+// Menampilkan datanya
+void display_admin()
+{
+    if (head == nullptr)
+    {
+        cout << "No data to display." << endl;
+        return;
+    }
+
+    Item *ptr;
+    ptr = head;
+    do
+    {
+        cout << "Nama Data : " << ptr->name << endl;
+        cout << "Harga : " << ptr->price << endl;
+        cout << "Id : " << ptr->id << endl;
+        ptr = ptr->next;
+    } while (ptr != head);
 }
 
 // Menampilkan datanya
@@ -636,7 +699,7 @@ void stfData(string name, int price, int id)
     else
     {
         Item *ptr;
-        ptr = head;
+        ptr = tail;
         if (ptr != NULL)
         {
             outfile << ptr->name << endl;

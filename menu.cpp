@@ -8,9 +8,8 @@ menu1:
     int pilihan;
     cout << ">>>>> Sub-Menu Pulsa <<<<<" << endl;
     cout << '\n';
-    // tampil_pulsa_admin();
     read();
-    display();
+    display_admin();
     cout << "\n1. Tambah Pulsa" << endl;
     cout << "2. Edit Pulsa" << endl;
     cout << "3. Hapus Pulsa" << endl;
@@ -33,7 +32,6 @@ menu1:
         cin >> id;
 
         tambahp(name, price, id);
-        stfData(name, price, id);
 
         sleep(1);
         goto menu1;
