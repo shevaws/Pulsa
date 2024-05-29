@@ -11,6 +11,9 @@ const int max_data = 99;
 
 // ?? ??? ???? ????? LINKED LIST ????? ???? ??? ?? //
 
+// Function Prototype
+void edittxt();
+
 // Linked List Pulsa
 struct Item
 {
@@ -100,7 +103,6 @@ void tambahp(string nama, int harga, int id)
             outfile << pulsa->name << endl;
             outfile << pulsa->price << endl;
             outfile << pulsa->id << endl;
-            // current = current->next;
         }
     }
 
@@ -142,6 +144,8 @@ void editp(int cari)
             cin >> wanted->id;
 
             cout << "\nData Berhasil diUpdate." << endl;
+
+            edittxt();
         }
     }
 }
@@ -193,48 +197,52 @@ void hapusp(int cari)
             delete wanted;
             cout << "\nData berhasil dihapus. " << endl;
         }
+        edittxt();
     }
 }
 
 // Ya masa gatau
-void tampil_pulsa_admin()
+// Menampilkan datanya
+void display_admin()
 {
-    if (kosong() == true)
+    if (head == nullptr)
     {
         cout << "Tidak ada data." << endl;
+        return;
     }
-    else
+
+    Item *ptr;
+    ptr = head;
+    do
     {
-        current = head;
-        do
-        {
-            cout << "Data : " << current->name << endl;
-            cout << "Harga : " << current->price << endl;
-            cout << "Id : " << current->id << endl;
-            current = current->next;
-            cout << endl;
-        } while (current != head);
-    }
+        cout << "Nama Data : " << ptr->name << endl;
+        cout << "Harga : " << ptr->price << endl;
+        cout << "Id : " << ptr->id << endl;
+        cout << endl;
+        ptr = ptr->next;
+    } while (ptr != head);
 }
 
-// Ya masa gatau
-void tampil_pulsa()
+// Menampilkan datanya
+void display()
 {
-    if (kosong() == true)
+    if (head == nullptr)
     {
-        cout << "Tidak ada data." << endl;
+        cout << "No data to display." << endl;
+        return;
     }
-    else
+
+    Item *ptr;
+    ptr = head;
+    int count = 1;
+    do
     {
-        int count = 1;
-        current = head;
-        do
-        {
-            cout << count << ". " << "Data : " << current->name << " Harga : " << current->price << endl;
-            current = current->next;
-            count++;
-        } while (current != head);
-    }
+        cout << count << ". ";
+        cout << "Nama Data : " << ptr->name << endl;
+        cout << "Harga : " << ptr->price << endl;
+        cout << endl;
+        ptr = ptr->next;
+    } while (ptr != head);
 }
 
 // ?? ??? ???? ????? REKENING (ARRAY) ????? ???? ??? ?? //
@@ -402,12 +410,16 @@ bool fullk()
 void tambahk(int cari)
 {
     wanted = head;
-    while (wanted != NULL && wanted->id != cari)
+    do
     {
+        if (wanted->id == cari)
+        {
+            break;
+        }
         wanted = wanted->next;
-    }
+    } while (wanted != head);
 
-    if (wanted == NULL)
+    if (wanted == NULL || wanted->id != cari)
     {
         cout << "Data tidak ditemukan." << endl;
     }
@@ -586,14 +598,12 @@ void saveToFile()
     }
 }
 
-// Dummy data dari file .txt
-
 // Baca data dari .txt
 void read()
 {
-    head = tail = NULL;                  // inisialisasi
-    string filename("Data.txt");         // Inisialisasi Nama File
-    ifstream inFile(filename); // Load dari file
+    head = tail = NULL;          // inisialisasi
+    string filename("Data.txt"); // Inisialisasi Nama File
+    ifstream inFile(filename);   // Load dari file
 
     if (inFile.fail()) // Kalo file gabisa dibuka
     {
@@ -610,16 +620,18 @@ void read()
         current->next = NULL;
         current->prev = NULL;
 
-        current->name =line;
+        current->name = line;
         // Read the price
-        if (!getline(inFile, line)) {
+        if (!getline(inFile, line))
+        {
             delete current;
             break;
         }
         current->price = stoi(line);
 
         // Read the id
-        if (!getline(inFile, line)) {
+        if (!getline(inFile, line))
+        {
             delete current;
             break;
         }
@@ -648,70 +660,26 @@ void read()
     }
 }
 
-// Menampilkan datanya
-void display_admin()
+// Edit data .txt
+void edittxt()
 {
-    if (head == nullptr)
-    {
-        cout << "No data to display." << endl;
-        return;
-    }
-
-    Item *ptr;
-    ptr = head;
-    do
-    {
-        cout << "Nama Data : " << ptr->name << endl;
-        cout << "Harga : " << ptr->price << endl;
-        cout << "Id : " << ptr->id << endl;
-        ptr = ptr->next;
-    } while (ptr != head);
-}
-
-// Menampilkan datanya
-void display()
-{
-    Item *ptr;
-    ptr = head;
-    while (ptr != NULL)
-    {
-        cout << "Nama Data : " << ptr->name << endl;
-        cout << "Harga : " << ptr->price << endl;
-        ptr = ptr->next;
-    }
-}
-
-// Save Orderan ke File .txt
-void stfData(string name, int price, int id)
-{
-    ofstream outfile("Data.txt", ios::app);
-
-    if (!outfile)
+    ofstream outFile("Data.txt");
+    if (!outFile)
     {
         cerr << "Failed to open file for writing." << endl;
         return;
     }
 
-    if (head == NULL && tail == NULL)
+    Item *ptr = head;
+    if (ptr != nullptr)
     {
-        outfile << "Tidak ada pesanan." << endl;
-    }
-    else
-    {
-        Item *ptr;
-        ptr = tail;
-        if (ptr != NULL)
+        do
         {
-            outfile << ptr->name << endl;
-            outfile << ptr->price << endl;
-            outfile << ptr->id << endl;
+            outFile << ptr->name << endl;
+            outFile << ptr->price << endl;
+            outFile << ptr->id << endl;
             ptr = ptr->next;
-        }
+        } while (ptr != head);
     }
-
-    outfile.close();
-    if (!outfile.good())
-    {
-        cerr << "Error occurred during writing to file." << endl;
-    }
+    outFile.close();
 }

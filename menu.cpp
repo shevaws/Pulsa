@@ -222,7 +222,6 @@ awalu:
         cout << "===== Selamat Datang di Counter ARRZ =====" << endl;
         cout << "Pulsa Yang Tersedia : " << endl;
         cout << '\n';
-        // tampil_pulsa();
         read();
         display();
         cout << '\n';
