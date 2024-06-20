@@ -1,12 +1,16 @@
 #include "LL.h"
 
+using namespace std;
+
 // Submenu 1 (Data)
 void menu1(int pilih)
 {
 menu1:
     system("cls");
     int pilihan;
-    cout << ">>>>> Sub-Menu Pulsa <<<<<" << endl;
+    cout << "====================================" << endl;
+    cout << "          >> Sub-Menu Pulsa <<      " << endl;
+    cout << "====================================" << endl;
     cout << '\n';
     read();
     display_admin();
@@ -14,6 +18,7 @@ menu1:
     cout << "2. Edit Pulsa" << endl;
     cout << "3. Hapus Pulsa" << endl;
     cout << "0. Kembali" << endl;
+    cout << "------------------------------------" << endl;
     cout << "Masukkan pilihan : ";
     cin >> pilihan;
 
@@ -62,7 +67,6 @@ menu1:
     {
         return;
     }
-
     else
     {
         cout << "Harap pilih pilihan yang tersedia." << endl;
@@ -77,7 +81,9 @@ void menu2(int pilih)
 menu2:
     system("cls");
     int pilihan;
-    cout << ">>>>> Sub-Menu Rekening Tujuan <<<<<" << endl;
+    cout << "=========================================" << endl;
+    cout << "       >> Sub-Menu Rekening Tujuan <<    " << endl;
+    cout << "=========================================" << endl;
     cout << '\n';
     cout << "BCA : " << endl;
     tampil_BCA();
@@ -90,6 +96,7 @@ menu2:
     cout << "\n1. Tambah Rekening" << endl;
     cout << "2. Hapus Rekening" << endl;
     cout << "0. Kembali" << endl;
+    cout << "-----------------------------------------" << endl;
     cout << "Masukkan pilihan : ";
     cin >> pilihan;
 
@@ -121,10 +128,9 @@ menu2:
         {
             return;
         }
-
         else
         {
-            cout << "Harap pilh sesuai pilihan yang ada." << endl;
+            cout << "Harap pilih sesuai pilihan yang ada." << endl;
             sleep(1);
             goto menu2;
         }
@@ -179,18 +185,22 @@ menu2:
     }
 }
 
-// Ya gitu
+// Menu Admin
 void menu_admin()
 {
     int pilih;
     do
     {
         system("cls");
-        cout << "Menu Admin ARRZ" << endl;
+        cout << "===================================" << endl;
+        cout << "           Menu Admin ARRZ         " << endl;
+        cout << "===================================" << endl;
         cout << "1. Edit Pulsa" << endl;
         cout << "2. Edit Rekening" << endl;
         cout << "3. Lihat Pesanan" << endl;
+        cout << "4. Lihat User" << endl;
         cout << "0. Logout" << endl;
+        cout << "-----------------------------------" << endl;
         cout << "Masukkan pilihan : ";
         cin >> pilih;
 
@@ -204,22 +214,68 @@ void menu_admin()
         }
         else if (pilih == 3)
         {
-            tampilo();
+            tampilo(-1);
             cout << endl;
+            system("pause");
+        }
+        else if (pilih == 4)
+        {
+            tampil_user();
             system("pause");
         }
     } while (pilih != 0);
 }
 
-// Sama aja
+// Menu User
 void menu_user()
 {
 awalu:
     int pilihu;
+    int pil;
+    bool isLogin = false;
+
+    int currentIdUser = -1;
+
+    while (!isLogin)
+    {
+        cout << "1. Register" << endl;
+        cout << "2. Login" << endl;
+        cout << "Masukkan pilihan : ";
+        cin >> pil;
+        if (pil == 1)
+        {
+            currentIdUser = reg();
+            isLogin = true;
+        }
+        else if (pil == 2)
+        {
+            currentIdUser = log();
+            if (currentIdUser != -1)
+            {
+                cout << "Berhasil Login." << endl;
+                isLogin = true;
+            }
+            else
+            {
+                cout << "Login Gagal." << endl;
+            }
+        }
+        else if (pil == 0)
+        {
+            return;
+        }
+        else
+        {
+            cout << "Harap Masukkan sesuai pilihan." << endl;
+        }
+    }
+
     do
     {
         system("cls");
-        cout << "===== Selamat Datang di Counter ARRZ =====" << endl;
+        cout << "==============================================" << endl;
+        cout << "  ===== Selamat Datang di Counter ARRZ =====  " << endl;
+        cout << "==============================================" << endl;
         cout << "Pulsa Yang Tersedia : " << endl;
         cout << '\n';
         read();
@@ -228,7 +284,9 @@ awalu:
         cout << "1. Beli Pulsa" << endl;
         cout << "2. Cek Keranjang" << endl;
         cout << "3. Bayar" << endl;
+        cout << "4. Lihat Pesanan" << endl;
         cout << "0. Keluar" << endl;
+        cout << "----------------------------------------------" << endl;
         cout << "Masukkan Pilihan Anda : ";
         cin >> pilihu;
 
@@ -238,14 +296,30 @@ awalu:
             int carip;
             cout << "Masukkan Nomor Item : ";
             cin >> carip;
-            tambahk(carip);
+            tambahk(carip, currentIdUser);
             sleep(1);
             break;
 
         case 2:
-            tampilk();
+            tampilk(currentIdUser);
             cout << endl;
-            system("pause");
+            cout << "1. Hapus Item (LIFO)" << endl;
+            cout << "0. Kembali" << endl;
+            cout << "Masukkan Pilihan : ";
+            int pilk;
+            cin >> pilk;
+            if (pilk == 1)
+            {
+                hapusk();
+            }
+            else if (pilk == 0)
+            {
+                break;
+            }
+            else
+            {
+                cout << "Harap pilih menu yang tersedia." << endl;
+            }
             break;
 
         case 3:
@@ -260,22 +334,45 @@ awalu:
             if (pilihm == 1)
             {
                 tampil_BCA();
-                tambaho();
+                tambaho(currentIdUser);
                 saveToFile();
             }
             else if (pilihm == 2)
             {
                 tampil_GP();
-                tambaho();
+                tambaho(currentIdUser);
                 saveToFile();
             }
             else if (pilihm == 3)
             {
                 tampil_DN();
-                tambaho();
+                tambaho(currentIdUser);
                 saveToFile();
             }
             break;
+        case 4:
+            tampilo(currentIdUser);
+            cout << endl;
+            cout << "1. Batalkan Pesanan (FIFO)" << endl;
+            cout << "0. Kembali" << endl;
+            cout << "Masukkan Pilihan : ";
+            int pilo;
+            cin >> pilo;
+            if (pilo == 1)
+            {
+                hapuso();
+                saveToFile();
+            }
+            else if (pilo == 0)
+            {
+                break;
+            }
+            else
+            {
+                cout << "Harap pilih menu yang tersedia." << endl;
+            }
+            break;
+
         default:
             cout << "Harap pilih sesuai pilihan." << endl;
             break;
@@ -283,14 +380,16 @@ awalu:
     } while (pilihu != 0);
 }
 
-// Login kang
+// Login Admin
 void admin()
 {
     string username = "arrz";
     string password = "123";
     string user;
     string pass;
-    cout << "\nAdmin ARRZ" << endl;
+    cout << "\n===================================" << endl;
+    cout << "             Admin ARRZ            " << endl;
+    cout << "===================================" << endl;
     cout << "Username: ";
     cin >> user;
     if (user == username)
@@ -317,13 +416,15 @@ void admin()
 
 int main(int argc, char const *argv[])
 {
-    // tambahp("Raka", 5000, 1);
 awal:
     system("cls");
     int pilih;
-    cout << ">>>>> E-Counter ARRZ <<<<<" << endl;
+    cout << "===================================" << endl;
+    cout << "        >> E-Counter ARRZ <<       " << endl;
+    cout << "===================================" << endl;
     cout << "Login Sebagai: " << endl;
     cout << "1. Admin\n2. User" << endl;
+    cout << "-----------------------------------" << endl;
     cout << "Masukkan Pilihan : ";
     cin >> pilih;
 

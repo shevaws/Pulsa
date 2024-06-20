@@ -4,6 +4,7 @@
 #include <sstream>
 #include <fstream>
 #include <iomanip>
+#include <cstdlib>
 
 using namespace std;
 
@@ -14,7 +15,7 @@ const int max_data = 99;
 // Function Prototype
 void edittxt();
 
-// Linked List Pulsa
+// Linked List Pulsadf
 struct Item
 {
     string name;
@@ -242,6 +243,7 @@ void display()
         cout << "Harga : " << ptr->price << endl;
         cout << endl;
         ptr = ptr->next;
+        count++;
     } while (ptr != head);
 }
 
@@ -371,6 +373,7 @@ int total = 0;
 // Struct Keranjang
 struct Keranjang
 {
+    int idUser[max_data];
     string nama_data[max_data];
     int harga_produk[max_data];
     int atas = -1;
@@ -407,7 +410,7 @@ bool fullk()
     }
 }
 
-void tambahk(int cari)
+void tambahk(int cari, int idUser)
 {
     wanted = head;
     do
@@ -426,6 +429,7 @@ void tambahk(int cari)
     else if (!fullk())
     {
         cart.atas++;
+        cart.idUser[cart.atas] = idUser;
         cart.nama_data[cart.atas] = wanted->name;
         cart.harga_produk[cart.atas] = wanted->price;
         total += cart.harga_produk[cart.atas];
@@ -447,18 +451,30 @@ void hapusk()
     }
 }
 
-void tampilk()
+void tampilk(int idUser)
 {
     cout << "Isi Keranjang Anda : " << endl;
     if (!kosongk())
     {
         int count = 1;
+        bool found = false;
         for (int i = cart.atas; i >= 0; i--)
         {
-            cout << count << ". " << cart.nama_data[i] << "\t" << cart.harga_produk[i] << endl;
-            count++;
+            if (idUser == -1 || cart.idUser[i] == idUser)
+            {
+                cout << count << ". " << cart.nama_data[i] << "\t" << cart.harga_produk[i] << endl;
+                count++;
+                found = true;
+            }
         }
-        cout << "\nTotal Belanjaanmu : " << total << endl;
+        if (found)
+        {
+            cout << "\nTotal Belanjaanmu : " << total << endl;
+        }
+        else
+        {
+            cout << "Keranjangmu masih kosong nih" << endl;
+        }
     }
     else
     {
@@ -471,7 +487,9 @@ void tampilk()
 // Struct Pesanan
 struct Pesanan
 {
+    int idUser[max_data];
     string nama_pesanan[max_data];
+    long long int nom[max_data];
     int depan = -1;
     int belakang = -1;
 };
@@ -500,7 +518,7 @@ bool kosongo()
 // If full
 bool fullo()
 {
-    if (order.belakang == max_data - 1)
+    if ((order.belakang + 1) % max_data == order.depan)
     {
         return 1;
     }
@@ -510,53 +528,75 @@ bool fullo()
     }
 }
 
-// Nomor Telepon Pembeli
-intptr_t nom;
-
 // Tambah data pesanan
-void tambaho()
+void tambaho(int idUser)
 {
-    if (kosongo() == 1)
+    if (kosongo())
     {
-        order.depan = order.belakang = 0;
-        for (int i = cart.atas; i > -1; i--)
-        {
-            order.nama_pesanan[order.belakang] = cart.nama_data[i];
-            order.belakang++;
-            cart.atas--;
-        }
+        order.depan = 0;
+        order.belakang = 0;
+    }
+    else if (fullo())
+    {
+        cout << "Order queue is full!" << endl;
+        return;
     }
     else
     {
-        if (fullo() == 0)
+        order.belakang++;
+    }
+
+    while (cart.atas >= 0)
+    {
+        order.nama_pesanan[order.belakang] = cart.nama_data[cart.atas];
+        cart.atas--;
+
+        if (cart.atas >= 0)
         {
-            order.depan = order.belakang = 0;
-            for (int i = cart.atas; i > -1; i--)
-            {
-                order.nama_pesanan[order.belakang] = cart.nama_data[i];
-                order.belakang++;
-                cart.atas--;
-            }
+            order.belakang++;
         }
     }
+
+    order.idUser[order.belakang] = idUser;
     cout << "\n\nHarap Transfer ke salah satu rekening saja." << endl;
-    cout << "Harap masukkan nomor tujuan : ";
-    cin >> nom;
+    cout << "Harap masukkan nomor tujuan: ";
+    cin >> order.nom[order.belakang];
     cout << "\nTerima Kasih Telah Membeli Produk Kami." << endl;
     system("pause");
 }
 
+void hapuso()
+{
+    if (!kosongo())
+    {
+        for (int i = order.depan; i < order.belakang; i++)
+        {
+            order.idUser[i] = order.idUser[i + 1];
+            order.nama_pesanan[i] = order.nama_pesanan[i + 1];
+            order.nom[i] = order.nom[i + 1];
+        }
+        order.belakang--;
+    }
+}
+
 // Ya gitu
-void tampilo()
+void tampilo(int idUser)
 {
     if (kosongo() == 0)
     {
-        cout << "Daftar Pesanan : " << endl;
-        int count = 1;
-        for (int i = order.depan; i < order.belakang; i++)
+        int i = order.depan;
+        bool found = false;
+        for (i; i <= order.belakang; i++)
         {
-            cout << count << ". " << order.nama_pesanan[i] << " Nomor Pembeli : " << nom << endl;
-            count++;
+            if (idUser == -1 || order.idUser[i] == idUser)
+            {
+                cout << order.nama_pesanan[i] << " Nomor Tujuan : " << order.nom[i] << endl;
+                found = true;
+            }
+        }
+        if (!found)
+        {
+            cout << "Tidak ada pesanan. " << endl;
         }
     }
     else
@@ -568,7 +608,7 @@ void tampilo()
 // Save Orderan ke File .txt
 void saveToFile()
 {
-    ofstream outfile("Orderan.txt", ios::app);
+    ofstream outfile("Orderan.txt");
 
     if (!outfile)
     {
@@ -582,13 +622,20 @@ void saveToFile()
     }
     else
     {
-        for (int i = 0; i <= order.belakang - 1; ++i)
+        int i = order.depan;
+        for (i; i <= order.belakang; i++)
         {
             outfile << "-------------------------" << endl;
+            outfile << "Id User: " << order.idUser[i] << endl;
             outfile << "Nama Item: " << order.nama_pesanan[i] << endl;
-            outfile << "Nomor Tujuan: " << nom << endl;
+            outfile << "Nomor Tujuan: " << order.nom[i] << endl;
             outfile << "-------------------------" << endl;
         }
+
+        // do
+        // {
+        //     i = (i + 1) % max_data;
+        // } while (i != (order.belakang + 1) % max_data);
     }
 
     outfile.close();
@@ -596,6 +643,30 @@ void saveToFile()
     {
         cerr << "Error occurred during writing to file." << endl;
     }
+}
+
+// Edit data .txt
+void edito()
+{
+    ofstream outFile("Orderan.txt");
+    if (!outFile)
+    {
+        cerr << "Failed to open file for writing." << endl;
+        return;
+    }
+
+    Item *ptr = head;
+    if (ptr != nullptr)
+    {
+        do
+        {
+            outFile << ptr->name << endl;
+            outFile << ptr->price << endl;
+            outFile << ptr->id << endl;
+            ptr = ptr->next;
+        } while (ptr != head);
+    }
+    outFile.close();
 }
 
 // Baca data dari .txt
@@ -682,4 +753,74 @@ void edittxt()
         } while (ptr != head);
     }
     outFile.close();
+}
+
+// ?? ??? ???? ????? User (Hashtable) ????? ???? ??? ?? //
+
+void ec(string &pw);
+
+const int max_user = 99;
+struct User
+{
+    int idUser;
+    string uname;
+    string pw;
+} user[max_user];
+
+int jumlah_user = 0;
+
+int reg()
+{
+    cout << "==========\t USER \t ==========" << endl;
+    cout << "Masukkan Username (No space, symbol, etc.) : ";
+    cin >> user[jumlah_user].uname;
+    cout << "Masukkan Password : ";
+    cin >> user[jumlah_user].pw;
+    user[jumlah_user].idUser = jumlah_user;
+
+    return jumlah_user++;
+}
+
+int log()
+{
+    string un;
+    string pws;
+    cout << "Masukkan Username : ";
+    cin >> un;
+    cout << "Masukkan Password : ";
+    cin >> pws;
+    for (int i = 0; i <= jumlah_user; i++)
+    {
+        if (un == user[i].uname && pws == user[i].pw)
+        {
+            return i;
+        }
+    }
+    return -1;
+}
+
+void tampil_user()
+{
+    if (jumlah_user == 0)
+    {
+        cout << "Tidak ada user." << endl;
+        return;
+    }
+    else
+    {
+        for (int i = 0; i < jumlah_user; i++)
+        {
+            string encrypted_pw = user[i].pw;
+            ec(encrypted_pw);
+            cout << "idUser : " << user[i].idUser << " Username : " << user[i].uname << " Passwword : " << encrypted_pw << endl;
+        }
+    }
+}
+
+void ec(string &pw)
+{
+    for (size_t i = 0; i < pw.length(); i++)
+    {
+        pw[i] = pw[i] + (rand() % 26);
+    }
 }
