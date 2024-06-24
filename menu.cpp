@@ -103,7 +103,7 @@ menu2:
     switch (pilihan)
     {
     case 1:
-        cout << "Harap pilih method yang ingin ditambahkan : ";
+        cout << "Harap pilih method yang ingin ditambahkan (Masukkan nomor metode): ";
         int p;
         cin >> p;
         if (p == 1)
@@ -138,14 +138,14 @@ menu2:
         break;
     case 2:
         int m;
-        cout << "Method mana yang ingin dihapus rekeningnya (index) : ";
+        cout << "Method mana yang ingin dihapus rekeningnya (nomor) : ";
         cin >> m;
         if (m == 1)
         {
             tampil_BCA();
             cout << endl;
             int carir;
-            cout << "Pilih index data yang ingin dihapus : ";
+            cout << "Pilih nomor data yang ingin dihapus : ";
             cin >> carir;
             hapusbca(carir);
             cout << "Data berhasil dihapus." << endl;
@@ -157,7 +157,7 @@ menu2:
             tampil_BNI();
             cout << endl;
             int carir;
-            cout << "Pilih index data yang ingin dihapus : ";
+            cout << "Pilih nomor data yang ingin dihapus : ";
             cin >> carir;
             hapusBNI(carir);
             cout << "Data berhasil dihapus." << endl;
@@ -169,7 +169,7 @@ menu2:
             tampil_Mandiri();
             cout << endl;
             int carir;
-            cout << "Pilih index data yang ingin dihapus : ";
+            cout << "Pilih nomor data yang ingin dihapus : ";
             cin >> carir;
             hapusMandiri(carir);
             cout << "Data berhasil dihapus." << endl;
