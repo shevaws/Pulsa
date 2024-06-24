@@ -9,14 +9,14 @@ menu1:
     system("cls");
     int pilihan;
     cout << "====================================" << endl;
-    cout << "          >> Sub-Menu Pulsa <<      " << endl;
+    cout << "          >> Sub-Menu e-wallet <<      " << endl;
     cout << "====================================" << endl;
     cout << '\n';
     read();
     display_admin();
-    cout << "\n1. Tambah Pulsa" << endl;
-    cout << "2. Edit Pulsa" << endl;
-    cout << "3. Hapus Pulsa" << endl;
+    cout << "\n1. Tambah e-wallet" << endl;
+    cout << "2. Edit e-wallet" << endl;
+    cout << "3. Hapus e-wallet" << endl;
     cout << "0. Kembali" << endl;
     cout << "------------------------------------" << endl;
     cout << "Masukkan pilihan : ";
@@ -28,7 +28,7 @@ menu1:
         int price;
         int id;
 
-        cout << "Masukkan Nama Pulsa : ";
+        cout << "Masukkan Nama e-wallet : ";
         cin.ignore();
         getline(cin, name);
         cout << "Masukkan Harga : ";
@@ -88,11 +88,11 @@ menu2:
     cout << "BCA : " << endl;
     tampil_BCA();
     cout << '\n';
-    cout << "Gopay : " << endl;
-    tampil_GP();
+    cout << "BNI : " << endl;
+    tampil_BNI();
     cout << '\n';
-    cout << "Dana : " << endl;
-    tampil_DN();
+    cout << "MANDIRI : " << endl;
+    tampil_Mandiri();
     cout << "\n1. Tambah Rekening" << endl;
     cout << "2. Hapus Rekening" << endl;
     cout << "0. Kembali" << endl;
@@ -114,13 +114,13 @@ menu2:
         }
         else if (p == 2)
         {
-            tambahgp();
+            tambahBNI();
             sleep(1);
             goto menu2;
         }
         else if (p == 3)
         {
-            tambahdn();
+            tambahMandiri();
             sleep(1);
             goto menu2;
         }
@@ -154,24 +154,24 @@ menu2:
         }
         else if (m == 2)
         {
-            tampil_GP();
+            tampil_BNI();
             cout << endl;
             int carir;
             cout << "Pilih index data yang ingin dihapus : ";
             cin >> carir;
-            hapusgp(carir);
+            hapusBNI(carir);
             cout << "Data berhasil dihapus." << endl;
             sleep(1);
             goto menu2;
         }
         else if (m == 3)
         {
-            tampil_DN();
+            tampil_Mandiri();
             cout << endl;
             int carir;
             cout << "Pilih index data yang ingin dihapus : ";
             cin >> carir;
-            hapusdn(carir);
+            hapusMandiri(carir);
             cout << "Data berhasil dihapus." << endl;
             sleep(1);
             goto menu2;
@@ -195,7 +195,7 @@ void menu_admin()
         cout << "===================================" << endl;
         cout << "           Menu Admin ARRZ         " << endl;
         cout << "===================================" << endl;
-        cout << "1. Edit Pulsa" << endl;
+        cout << "1. Edit e-wallet" << endl;
         cout << "2. Edit Rekening" << endl;
         cout << "3. Lihat Pesanan" << endl;
         cout << "4. Lihat User" << endl;
@@ -276,12 +276,12 @@ awalu:
         cout << "==============================================" << endl;
         cout << "  ===== Selamat Datang di Counter ARRZ =====  " << endl;
         cout << "==============================================" << endl;
-        cout << "Pulsa Yang Tersedia : " << endl;
+        cout << "e-wallet Yang Tersedia : " << endl;
         cout << '\n';
         read();
         display();
         cout << '\n';
-        cout << "1. Beli Pulsa" << endl;
+        cout << "1. Beli e-wallet" << endl;
         cout << "2. Cek Keranjang" << endl;
         cout << "3. Bayar" << endl;
         cout << "4. Lihat Pesanan" << endl;
@@ -326,8 +326,8 @@ awalu:
             int pilihm;
             cout << "Pilih Metode Pembayaran : " << endl;
             cout << "1. BCA" << endl;
-            cout << "2. Gopay" << endl;
-            cout << "3. Dana" << endl;
+            cout << "2. BNI" << endl;
+            cout << "3. MANDIRI" << endl;
             cout << "Masukkan pilihan anda : ";
             cin >> pilihm;
 
@@ -339,13 +339,13 @@ awalu:
             }
             else if (pilihm == 2)
             {
-                tampil_GP();
+                tampil_BNI();
                 tambaho(currentIdUser);
                 saveToFile();
             }
             else if (pilihm == 3)
             {
-                tampil_DN();
+                tampil_Mandiri();
                 tambaho(currentIdUser);
                 saveToFile();
             }

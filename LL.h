@@ -250,8 +250,8 @@ void display()
 // ?? ??? ???? ????? REKENING (ARRAY) ????? ???? ??? ?? //
 
 string BCA[99] = {"1223456789 A/N RAKA ANDRIY SHEVCHENKO", "123456789 A/N P", "123456789 A/N Q"};
-string GP[99] = {"1223456789 A/N RAKA ANDRIY SHEVCHENKO", "123456789 A/N P", "123456789 A/N Q"};
-string DN[99] = {"1223456789 A/N RAKA ANDRIY SHEVCHENKO", "123456789 A/N P", "123456789 A/N Q"};
+string BNI[99] = {"1223456789 A/N RAKA ANDRIY SHEVCHENKO", "123456789 A/N P", "123456789 A/N Q"};
+string Mandiri[99] = {"1223456789 A/N RAKA ANDRIY SHEVCHENKO", "123456789 A/N P", "123456789 A/N Q"};
 
 // Ngitung Data
 int countNonEmpty(const string arr[])
@@ -279,29 +279,29 @@ void tambahbca()
 }
 
 // Tambah Data
-void tambahgp()
+void tambahBNI()
 {
     string data;
-    int i = countNonEmpty(GP);
+    int i = countNonEmpty(BNI);
 
     cout << "Masukkan nomor rekening baru dan A/N nya : " << endl;
     cin.ignore();
     getline(cin, data);
-    GP[i] = data;
+    BNI[i] = data;
 
     cout << "Nomor rekening berhasil ditambahkan." << endl;
 }
 
 // Tambah Data
-void tambahdn()
+void tambahMandiri()
 {
     string data;
-    int i = countNonEmpty(DN);
+    int i = countNonEmpty(Mandiri);
 
     cout << "Masukkan nomor rekening baru dan A/N nya : " << endl;
     cin.ignore();
     getline(cin, data);
-    DN[i] = data;
+    Mandiri[i] = data;
 
     cout << "Nomor rekening berhasil ditambahkan." << endl;
 }
@@ -317,22 +317,22 @@ void hapusbca(int cari)
 }
 
 // Hapus Data
-void hapusgp(int cari)
+void hapusBNI(int cari)
 {
-    int j = countNonEmpty(GP);
+    int j = countNonEmpty(BNI);
     for (int i = cari - 1; i < j; i++)
     {
-        GP[i] = GP[i + 1];
+        BNI[i] = BNI[i + 1];
     }
 }
 
 // Hapus Data
-void hapusdn(int cari)
+void hapusMandiri(int cari)
 {
-    int j = countNonEmpty(DN);
+    int j = countNonEmpty(Mandiri);
     for (int i = cari - 1; i < j; i++)
     {
-        DN[i] = DN[i + 1];
+        Mandiri[i] = Mandiri[i + 1];
     }
 }
 
@@ -347,22 +347,22 @@ void tampil_BCA()
 }
 
 // Masa gatau
-void tampil_GP()
+void tampil_BNI()
 {
-    int jGP = countNonEmpty(GP);
-    for (int i = 0; i < jGP; i++)
+    int jBNI = countNonEmpty(BNI);
+    for (int i = 0; i < jBNI; i++)
     {
-        cout << GP[i] << endl;
+        cout << BNI[i] << endl;
     }
 }
 
 // Masa gatau
-void tampil_DN()
+void tampil_Mandiri()
 {
-    int jDN = countNonEmpty(DN);
-    for (int i = 0; i < jDN; i++)
+    int jMandiri = countNonEmpty(Mandiri);
+    for (int i = 0; i < jMandiri; i++)
     {
-        cout << DN[i] << endl;
+        cout << Mandiri[i] << endl;
     }
 }
 
