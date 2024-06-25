@@ -443,6 +443,7 @@ void hapusk()
     if (!kosongk())
     {
         cout << "Data berhasil dihapus." << endl;
+        total -= cart.harga_produk[cart.atas];
         cart.atas--;
     }
     else
